@@ -19,9 +19,10 @@ export default async (_req: NextApiRequest, res: NextApiResponse) => {
        const ProductsCollection = await client.db("Power").collection("Products")
        const docs = await ProductsCollection.find({}).limit(limit )
        console.log('docs: ', docs);
+      //  console.log('docs: ', docs);
       const products : any[] = [];
        await docs.forEach((prod:any) =>{
-        console.log('prod: ', prod);
+        // console.log('prod: ', prod);
               products.push(prod);
         })
         if (products.length > 0) {

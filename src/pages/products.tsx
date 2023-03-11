@@ -48,7 +48,7 @@ const Page = () => {
           const res = await req.json()
           // console.log('res: ', res);
           if (res?.success) {
-            let a = data.filter((x:any) => `${x._id}` === id)
+            let a = data.filter((x:any) => `${x._id}` !== id)
             // console.log('a: ', a);
             setData(a)
             // window.reload()
