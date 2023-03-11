@@ -7,21 +7,19 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
-import { AccountPopover } from './account-popover';
 
-const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  boxShadow: theme.shadows[3]
-}));
+// const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
+//   backgroundColor: theme.palette.background.paper,
+//   boxShadow: theme.shadows[3]
+// }));
 
-export const DashboardNavbar = (props) => {
+export const DashboardNavbar = (props:any) => {
   const { onSidebarOpen, ...other } = props;
   const settingsRef = useRef(null);
-  const [openAccountPopover, setOpenAccountPopover] = useState(false);
+  // const [openAccountPopover, setOpenAccountPopover] = useState(false);
 
   return (
-    <>
-      <DashboardNavbarRoot
+      <Box
         sx={{
           left: {
             lg: 280
@@ -73,7 +71,7 @@ export const DashboardNavbar = (props) => {
             </IconButton>
           </Tooltip>
           <Avatar
-            onClick={() => setOpenAccountPopover(true)}
+            // onClick={() => setOpenAccountPopover(true)}
             ref={settingsRef}
             sx={{
               cursor: 'pointer',
@@ -86,15 +84,10 @@ export const DashboardNavbar = (props) => {
             <UserCircleIcon fontSize="small" />
           </Avatar>
         </Toolbar>
-      </DashboardNavbarRoot>
-      <AccountPopover
-        anchorEl={settingsRef.current}
-        open={openAccountPopover}
-        onClose={() => setOpenAccountPopover(false)}
-      />
-    </>
+      </Box>
+
   );
-};
+          };
 
 DashboardNavbar.propTypes = {
   onSidebarOpen: PropTypes.func
