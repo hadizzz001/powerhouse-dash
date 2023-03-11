@@ -174,8 +174,8 @@ const Login = () => {
             </Box>
             <Box
             sx={{display:'flex'}}
-              color="textSecondary"
-              variant="body2"
+              // color="textSecondary"
+              // variant="body2"
             >
               Don&apos;t have an account?
               {' '}
