@@ -1,16 +1,31 @@
-import Head from 'next/head';
-import NextLink from 'next/link';
-import Router from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Container, Select, Link, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Select, Link, TextField,
+  Typography, Checkbox, FormControlLabel } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import AddImage from './AddImage';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 // import { Facebook as FacebookIcon } from '../icons/facebook';
 // import { Google as GoogleIcon } from '../icons/google';
 
-const Index = () => {
+  const Index = ({state,saveState}:{state:any,saveState:any}) => {
+  const [imgs, setImgs] = useState([''])
+  const router= useRouter()
+  const handleImgChange = (url:string[] | any) => {
+    // console.log('imgs: ', imgs);
+    if (url) {
+
+      setImgs(url);
+
+      // saveState({
+      //   ...state,
+      //   images: [...imgs] || url
+      // })
+    }
+  }
   const formik = useFormik({
-    initialValues: {
+      initialValues: {
       title: '',
       price : '',
       weight: '',
@@ -23,12 +38,11 @@ const Index = () => {
       // password: 'Password123'
     },
     validationSchema: Yup.object({
-      title: Yup
+        title: Yup
         .string()
         // .email('Must be a valid email')
         .max(255)
         .required('Title is required'),
-
         price : Yup.number().max(1000000).min(0.1).required('Price is required'),
         description : Yup.string().max(122525).min(1).required('Description is required'),
         category : Yup.string().max(255).min(3).required('Category is required'),
@@ -42,9 +56,35 @@ const Index = () => {
       //   .max(255)
       //   .required('Password is required')
     }),
-    onSubmit:(values)=>{
-      console.log('value: ', values);
+    onSubmit:async (values,{ resetForm})=>{
+      const tkn = localStorage.getItem('tkn');
+      if (!tkn) {return};
+      // saveState(values)
+      // console.log('values: ', values);
+    //   saveState({
+      //     ...values,
+    //     images: [...imgs]
+    // });
 
+    const req = await fetch('http://localhost:3000/api/save',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({state:{...values,images:imgs}})
+    })
+    // console.log('state: ', state);
+    const res = await req.json()
+    // console.log('values: ', values);
+    // console.log('res: ', res);
+    if (res?.success) {
+
+
+        resetForm();
+        router.push('/products')
+        return
+    }
     },
     // validate:(e) => {(console.log('e: ', e))}
 
@@ -55,7 +95,7 @@ const Index = () => {
 
       <Box
         component="main"
-        className='essential'
+      className='essential'
         sx={{
           maxWidth:'sm'
           // alignItems: 'center',
@@ -137,7 +177,7 @@ const Index = () => {
               value={formik.values.weight.toLocaleLowerCase()}
               variant="filled"
             />
-            <TextField
+            {/* <TextField
               error={Boolean(formik.touched.isFeatured && formik.errors.isFeatured)}
               fullWidth
               helperText={formik.touched.isFeatured && formik.errors.isFeatured}
@@ -149,7 +189,18 @@ const Index = () => {
               type="text"
               value={formik.values.isFeatured}
               variant="filled"
-            />
+            /> */}
+            <FormControlLabel
+            // helperText={formik.touched.isFeatured && formik.errors.isFeatured}
+            label="Show On Homepage?"
+            // error={Boolean(formik.touched.isFeatured && formik.errors.isFeatured)}
+            name="isFeatured"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            control={<Checkbox
+            // margin="normal"
+            // fullWidth
+            value={formik.values.isFeatured}  />}  />
 
 
 
@@ -166,7 +217,7 @@ const Index = () => {
               value={formik.values.password}
               variant="outlined"
             /> */}
-
+              <AddImage  HandleImagesChange={handleImgChange}/>
           </form>
         {/* </Container> */}
 

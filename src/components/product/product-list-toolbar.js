@@ -11,8 +11,12 @@ import {
 import { Download as DownloadIcon } from '../../icons/download';
 import { Search as SearchIcon } from '../../icons/search';
 import { Upload as UploadIcon } from '../../icons/upload';
+import { useRouter } from 'next/router';
 
-export const ProductListToolbar = (props) => (
+export const ProductListToolbar = (props) => {
+  const router = useRouter()
+  return (
+
   <Box {...props}>
     <Box
       sx={{
@@ -43,9 +47,10 @@ export const ProductListToolbar = (props) => (
           Export
         </Button>
         <Button
-          color="primary"
+  onClick={()=>router.push('/add')}
+color="primary"
           variant="contained"
-        >
+          >
           Add products
         </Button>
       </Box>
@@ -76,4 +81,6 @@ export const ProductListToolbar = (props) => (
       </Card>
     </Box>
   </Box>
-);
+  )
+
+            };

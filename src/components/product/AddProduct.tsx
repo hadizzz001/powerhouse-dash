@@ -4,16 +4,17 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Checkbox,
   Divider,
-  FormControlLabel,
-  Grid,
-  Typography
+
 } from '@mui/material';
 import EssentialInfo from '../add/EssentialInfo';
+import { useState } from 'react';
 
 
 const AddProduct = () => {
+  const [product, setProduct] = useState({})
+  // console.log('product: ', product);
+
   return (
 
     <Card>
@@ -23,7 +24,7 @@ const AddProduct = () => {
       />
       <Divider />
       <CardContent>
-        <EssentialInfo/>
+        <EssentialInfo state={product} saveState={setProduct}/>
       </CardContent>
       <Divider />
       <Box
