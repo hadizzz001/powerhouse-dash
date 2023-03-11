@@ -66,7 +66,7 @@ import { useRouter } from 'next/router';
     //     images: [...imgs]
     // });
 
-    const req = await fetch('http://localhost:3000/api/save',{
+    const req = await fetch(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/api/save}`,{
       method: 'POST',
       headers: {
         'Accept': 'application/json',

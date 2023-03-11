@@ -33,15 +33,13 @@ const App = (props) => {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <AuthProvider>
-            <AuthConsumer>
               {
-                (auth) => auth.isLoading
-                  ? <Fragment />
-                  : getLayout(<Component {...pageProps} />)
+                // (auth) => auth.isLoading
+                  // ? <Fragment />
+                   getLayout(<Component {...pageProps} />)
               }
-            </AuthConsumer>
-          </AuthProvider>
+
+
         </ThemeProvider>
       </LocalizationProvider>
     </CacheProvider>
