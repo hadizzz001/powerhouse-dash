@@ -38,7 +38,10 @@ const Page = () => {
         py: 8
       }}
     >
-      <Container maxWidth={false}>
+      <Typography>
+        Dashboard Is still under development.
+      </Typography>
+      {/* <Container maxWidth={false}>
         <Grid
           container
           spacing={3}
@@ -116,7 +119,7 @@ const Page = () => {
             <LatestOrders />
           </Grid>
         </Grid>
-      </Container>
+      </Container> */}
     </Box>}
   </>
   )

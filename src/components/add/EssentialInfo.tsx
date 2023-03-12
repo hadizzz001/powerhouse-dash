@@ -56,9 +56,11 @@ import { useRouter } from 'next/router';
       //   .max(255)
       //   .required('Password is required')
     }),
-    onSubmit:async (values,{ resetForm})=>{
+    onSubmit:async (values,{ setSubmitting  , resetForm})=>{
+      // console.log('isSubmitting: ', setSubmitting );
       const tkn = localStorage.getItem('tkn');
-      if (!tkn) {return};
+      if (!tkn ) {return};
+      setSubmitting(true)
       // saveState(values)
       // console.log('values: ', values);
     //   saveState({
@@ -82,9 +84,13 @@ import { useRouter } from 'next/router';
 
 
         resetForm();
+        setSubmitting(false)
         router.push('/products')
+
         return
     }
+    setSubmitting(false)
+
     },
     // validate:(e) => {(console.log('e: ', e))}
 

@@ -35,6 +35,7 @@ const AddProduct = () => {
         }}
       >
         <Button
+        // disabled={formik.isSubmitting}
         type='submit'
         form='add-form'
         color="primary"

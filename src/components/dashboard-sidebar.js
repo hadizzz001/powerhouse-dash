@@ -18,11 +18,11 @@ import { Logo } from './logo';
 import { NavItem } from './nav-item';
 
 const items = [
-  {
-    href: '/',
-    icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
-  },
+  // {
+  //   href: '/',
+  //   icon: (<ChartBarIcon fontSize="small" />),
+  //   title: 'Dashboard'
+  // },
   // {
   //   href: '/customers',
   //   icon: (<UsersIcon fontSize="small" />),
@@ -48,6 +48,7 @@ const items = [
   //   icon: (<LockIcon fontSize="small" />),
   //   title: 'Login'
   // },
+
   {
     href: '/add',
     icon: (<LibraryAddIcon fontSize="small" />),

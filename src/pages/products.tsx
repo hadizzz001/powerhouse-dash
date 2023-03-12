@@ -31,7 +31,7 @@ const Page = () => {
 
   }, [])
   const Delete= async (id:string) => {
-    console.log('id: ', id);
+    // console.log('id: ', id);
     let proceed = confirm("Delete Product?");
     if (proceed) {
       //proceed

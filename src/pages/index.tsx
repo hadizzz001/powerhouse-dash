@@ -28,7 +28,7 @@ const Login = () => {
     }),
     onSubmit: async (values,{setSubmitting}) => {
 
-      console.log('values: ', values);
+      // console.log('values: ', values);
       const rawResponse = await fetch(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/api/login`, {
         method: 'POST',
         headers: {
@@ -39,10 +39,9 @@ const Login = () => {
       });
       const content = await rawResponse.json();
       if (content && content?.authorized) {
-        console.log('content: ', content);
 
         localStorage.setItem('tkn',JSON.stringify(content.jwt));
-        router.push('/dashboard')
+        router.push('/add')
       }
         setSubmitting(false)
 

@@ -6,7 +6,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const product = req.body.state
   if (req.method === 'POST') {
     // Process a POST request
-    console.log('product: ', product);
+    // console.log('product: ', product);
     if (!product) return res.status(400).json({success:false})
        const insertReq = await client.db("Power").collection("Products").insertOne(product);
        if (insertReq.acknowledged) {

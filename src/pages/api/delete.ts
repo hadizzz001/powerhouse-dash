@@ -23,7 +23,7 @@ export default async(req : NextApiRequest, res : NextApiResponse) => {
                 .deleteOne({
                     "_id": new ObjectId(`${id}`)
                 });
-            console.log('deletedProduct: ', deletedProduct);
+            // console.log('deletedProduct: ', deletedProduct);
             if (deletedProduct
                 ?.acknowledged && deletedProduct
                     ?.deletedCount !== 0) {
