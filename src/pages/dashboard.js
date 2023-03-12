@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Box, Container, Grid } from '@mui/material';
+import {Typography, Box, Container, Grid } from '@mui/material';
 import { Budget } from '../components/dashboard/budget';
 import { LatestOrders } from '../components/dashboard/latest-orders';
 import { LatestProducts } from '../components/dashboard/latest-products';
