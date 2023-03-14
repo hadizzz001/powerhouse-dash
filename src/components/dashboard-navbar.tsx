@@ -20,7 +20,9 @@ export const DashboardNavbar = (props:any) => {
 
   return (
       <Box
+
         sx={{
+
           left: {
             lg: 280
           },
@@ -32,7 +34,9 @@ export const DashboardNavbar = (props:any) => {
         <Toolbar
           disableGutters
           sx={{
+            width:'100%',
             minHeight: 64,
+          top:0,
             left: 0,
             px: 2
           }}

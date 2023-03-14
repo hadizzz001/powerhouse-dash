@@ -3,18 +3,20 @@ import client from '../../mongodb';
 import { ObjectId } from 'mongodb';
 
 
- 
+
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === 'GET') {
-  const id = req.query.pid; 
-  
+  if (req.method === 'POST') {
+  const id = req.query.pid;
+  const item = req.body.state
+
     const product = await client.db("Power").collection("Products")
-    .findOneAndUpdate(id , req.body);
-       if (product) {
-         return res.status(200).json(product);
+    .updateOne({_id:new ObjectId(`${id}`)} , {$set:{title:item.title,weight:item.weight,price:item.price,description:item.description,category:item.category,
+    images:item.images,isFeatured:item.isFeatured}});
+    if (product && product?.modifiedCount !== 0) {
+         return res.status(200).json({success:true});
         }
 }
-return res.status(404).json({success:false});
+return res.status(400).json({success:false});
 
 }

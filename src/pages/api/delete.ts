@@ -8,7 +8,6 @@ export default async(req : NextApiRequest, res : NextApiResponse) => {
 
         const id = req.body.id;
         const jwt = req.body.jwt;
-        console.log('req.query: ', req.body);
         if (req.method === 'POST') {
             // Process a POST request
             if (!jwt || !id) {

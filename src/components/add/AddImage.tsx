@@ -6,9 +6,10 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface IImageForm {
     HandleImagesChange :  Dispatch<SetStateAction<string[] | any[]>>
-}
+    defaultValue ?: string[] | undefined | null;
+  }
 
-const ImageForm = ({HandleImagesChange}:IImageForm) => {
+const ImageForm = ({defaultValue,HandleImagesChange}:IImageForm) => {
  const [load,setLoad] = useState(true)
 //  useEffect(() => {
 //   setLoad(true)
@@ -44,7 +45,7 @@ const ImageForm = ({HandleImagesChange}:IImageForm) => {
                                     clearable
                                     multiple
                                     imagesOnly
-                                    // value={imgs}
+                                    // values={imgs}
                                     onChange={() => {
                                     // setProduct({
                                     //     ...product,

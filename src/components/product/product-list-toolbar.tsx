@@ -13,11 +13,11 @@ import { Search as SearchIcon } from '../../icons/search';
 import { Upload as UploadIcon } from '../../icons/upload';
 import { useRouter } from 'next/router';
 
-export const ProductListToolbar = (props) => {
+export const ProductListToolbar = ({q,handleChange}:any) => {
   const router = useRouter()
   return (
 
-  <Box {...props}>
+  <Box >
     <Box
       sx={{
         alignItems: 'center',
@@ -58,18 +58,23 @@ color="primary"
     <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>
-          <Box sx={{ maxWidth: 500 }}>
+          <Box component='form' sx={{ maxWidth: 500 }}>
             <TextField
+            value={q}
+            onChange={(e)=>handleChange(e)}
               fullWidth
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
+                  <Button type='submit'>
+
                     <SvgIcon
                       fontSize="small"
                       color="action"
-                    >
-                      <SearchIcon />
+                      >
+                      <SearchIcon  />
                     </SvgIcon>
+                      </Button>
                   </InputAdornment>
                 )
               }}

@@ -11,9 +11,18 @@ const Page = () => {
   const [isauthed,setIsauthed]= useState(false)
   const router = useRouter()
   const [data,setData] = useState([])
+  const [q,setQ] = useState('')
   // console.log('data: ', data);
+  const handleChange = (e:any) =>   {
+
+    setQ(`${e.target.value}`)
+    if (q.length > 0) {
+
+    }
+  }
+  // const onSubmit = ()
   const fetchAll = async () => {
-    const req = await fetch(`${process.env.NEXT_PUBLIC_API || 'http://localhost:3000'}/api/getall`)
+    const req = await fetch(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/api/getall`)
     const res = await req.json()
     // console.log('res: ', res);
     setData(res)
@@ -64,7 +73,7 @@ const Page = () => {
   <>
     <Head>
       <title>
-        Products | Material Kit
+        Products | powerhouse | onbeirut.com
       </title>
     </Head>
    {isauthed && <Box
@@ -75,13 +84,13 @@ const Page = () => {
       }}
     >
       <Container maxWidth={false}>
-        <ProductListToolbar />
+        <ProductListToolbar q={q} handleChange={handleChange} />
         <Box sx={{ pt: 3 }}>
           <Grid
             container
             spacing={3}
           >
-          {data && data.length > 0 ? data.map((product:any) => {
+          {data && data.length > 0 ? data.filter((item:any)=>item.title.includes(q)).map((product:any) => {
             if (!product?._id || !product?.title) return;
 
             return(  <Grid
@@ -106,8 +115,10 @@ const Page = () => {
                       </Typography>
                     </Box>
                       <Box className='flex gap-3' sx={{mt:'.35em'}}>
-                        <Button sx={{border:'1px solid',py:'.25em'}}>View</Button>
-                        <Button sx={{border:'1px solid',py:'.25em'}}>Edit</Button>
+                        {/* <Button sx={{border:'1px solid',py:'.25em'}}>View</Button> */}
+                        <Button sx={{border:'1px solid',py:'.25em'}}
+                        onClick={()=>router.push(`/add?id=${product?._id}&mode=edit`)}
+                        >Edit</Button>
                         <Button
                         onClick={()=>Delete(product?._id)}
                         sx={{border:'1px solid red',py:'.25em',color:'red'}}>Delete</Button>
@@ -117,8 +128,8 @@ const Page = () => {
                 {/* <ProductCard product={product} /> */}
               </Grid>
             )}):
-            <Typography>
-              No products to show
+            <Typography sx={{textAlign:'center'}}>
+              Loading...
             </Typography>
             }
 
@@ -133,7 +144,7 @@ const Page = () => {
         >
           <Pagination
             color="primary"
-            count={3}
+            count={1}
             size="small"
           />
         </Box>

@@ -4,28 +4,16 @@ import { Box, Button, Container, Select, Link, TextField,
   Typography, Checkbox, FormControlLabel } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddImage from './AddImage';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 // import { Facebook as FacebookIcon } from '../icons/facebook';
 // import { Google as GoogleIcon } from '../icons/google';
 
-  const Index = ({state,saveState}:{state:any,saveState:any}) => {
-  const [imgs, setImgs] = useState([''])
-  const router= useRouter()
-  const handleImgChange = (url:string[] | any) => {
-    // console.log('imgs: ', imgs);
-    if (url) {
+  const Index = ({setDisabled}:{setDisabled:any}) => {
+    const [imgs, setImgs] = useState([''])
 
-      setImgs(url);
-
-      // saveState({
-      //   ...state,
-      //   images: [...imgs] || url
-      // })
-    }
-  }
-  const formik = useFormik({
-      initialValues: {
+    const [itemToEDIT,setItemToEdit]= useState<any>({})
+    const [init,setInit]= useState({
       title: '',
       price : '',
       weight: '',
@@ -36,66 +24,146 @@ import { useRouter } from 'next/router';
       // Manufacturer
       // additionalInfo:'',
       // password: 'Password123'
-    },
-    validationSchema: Yup.object({
-        title: Yup
-        .string()
-        // .email('Must be a valid email')
-        .max(255)
-        .required('Title is required'),
-        price : Yup.number().max(1000000).min(0.1).required('Price is required'),
-        description : Yup.string().max(122525).min(1).required('Description is required'),
-        category : Yup.string().max(255).min(3).required('Category is required'),
-        weight : Yup.string().max(255).min(3),
-        isFeatured : Yup.boolean(),
+      })
+    const [load,setLoad]= useState<any>(false)
+    const router = useRouter()
+    const mode = router.query.mode;
+    const id = router.query.id;
 
 
+    const getItem = async () => {
+      try {
 
-        // password: Yup
-      //   .string()
-      //   .max(255)
-      //   .required('Password is required')
-    }),
-    onSubmit:async (values,{ setSubmitting  , resetForm})=>{
-      // console.log('isSubmitting: ', setSubmitting );
-      const tkn = localStorage.getItem('tkn');
-      if (!tkn ) {return};
-      setSubmitting(true)
-      // saveState(values)
-      // console.log('values: ', values);
-    //   saveState({
-      //     ...values,
-    //     images: [...imgs]
-    // });
-
-    const req = await fetch(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/api/save`,{
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({state:{...values,images:imgs}})
-    })
-    // console.log('state: ', state);
+    const req= await fetch(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/api/getbyid?pid=${id}`)
     const res = await req.json()
-    // console.log('values: ', values);
-    // console.log('res: ', res);
-    if (res?.success) {
+    if (res) {
 
-
-        resetForm();
-        setSubmitting(false)
-        router.push('/products')
-
-        return
+      setItemToEdit(res)
+      setLoad(false)
+      // init.title = res.title;
+      setInit({
+        ...init,
+        title: res.title,
+        description: res.description,
+        price: res.price,
+        category: res.category,
+        isFeatured: res.isFeatured,
+        weight: res?.weight,
+      })
+      setImgs(res.images)
+      // return res
     }
-    setSubmitting(false)
+    setLoad(false)
 
-    },
-    // validate:(e) => {(console.log('e: ', e))}
+  }
+  catch(e){
+    setLoad(false)
 
-  });
+    console.log('e: ', e);
 
+  }
+    }
+    useEffect(() => {
+      if(!router.isReady || !id) return;
+      if (mode === 'edit' && id) {
+        setLoad(true)
+        getItem()
+      }
+    },[mode])
+  const handleImgChange = (url:string[] | any) => {
+    if (url) {
+
+      setImgs(url);
+
+      // saveState({
+      //   ...state,
+      //   images: [...imgs] || url
+      // })
+    }
+  }
+const resetForm = () => {
+  setInit({ title: '',
+  price : '',
+  weight: '',
+  description:'',
+  isFeatured : false,
+  category : 'electronics'})
+}
+// console.log('init: ', init);
+const onSubmit = async (e:any)=>{
+  e.preventDefault();
+  setDisabled(true)
+  const tkn = localStorage.getItem('tkn');
+  if (!tkn ) {
+    setDisabled(false)
+    return
+  };
+  // saveState(values)
+//   saveState({
+  //     ...values,
+//     images: [...imgs]
+// });
+
+const req = await fetch(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/api/${id && mode === 'edit' ? `update?pid=${id}`: `save`}`,{
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({state:{...init,images:imgs}})
+})
+// console.log('state: ', state);
+const res = await req.json()
+if (res?.success) {
+
+
+    resetForm();
+    // setSubmitting(false)
+    setDisabled(false)
+
+    router.push('/products')
+
+    return
+}
+setDisabled(false)
+
+// setSubmitting(false)
+
+}
+// const formik = useFormik({
+//       // initialValues: init,
+
+//     validationSchema: Yup.object({
+//         title: Yup
+//         .string()
+//         // .email('Must be a valid email')
+//         .max(255)
+//         .required('Title is required'),
+//         price : Yup.number().max(10000000).min(0.1).required('Price is required'),
+//         description : Yup.string().max(122525).min(1).required('Description is required'),
+//         category : Yup.string().max(255).min(2).required('Category is required'),
+//         weight : Yup.string().max(255).min(1),
+//         isFeatured : Yup.boolean(),
+
+
+
+//         // password: Yup
+//       //   .string()
+//       //   .max(255)
+//       //   .required('Password is required')
+//     }),
+
+//     // validate:(e) => {(console.log('e: ', e))}
+
+//   });
+  const handleChange = async (e:any) => {
+    let val = e.target.value
+    if (val) {
+      setInit({...init,
+      [e.target.name]: val
+    })
+    }
+  }
   return (
     <>
 
@@ -112,75 +180,83 @@ import { useRouter } from 'next/router';
       >
         {/* <Container maxWidth='sm' > */}
 
-          <form id='add-form' onSubmit={formik.handleSubmit}>
+       {!load &&   <form id='add-form' onSubmit={onSubmit}>
 
 
             <TextField
-              error={Boolean(formik.touched.title && formik.errors.title)}
+            required
+              // error={Boolean(formik.touched.title && formik.errors.title)}
               fullWidth
-              helperText={formik.touched.title && formik.errors.title}
+              // helperText={formik.touched.title && formik.errors.title}
               label="Title*"
               margin="normal"
               name="title"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              // onBlur={formik.handleBlur}
+              onChange={handleChange}
               type="text"
-              value={formik.values.title}
+              // defaultValue={itemToEDIT.title}
+              value={init.title}
               variant="filled"
             />
                         <TextField
-              error={Boolean(formik.touched.price && formik.errors.price)}
+            required
+
+              // error={Boolean(formik.touched.price && formik.errors.price)}
               fullWidth
-              helperText={formik.touched.price && formik.errors.price}
+              // helperText={formik.touched.price && 'Price should be at least 0.1 '}
               label="Price* in $"
               margin="normal"
               name="price"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              // onBlur={formik.handleBlur}
+              onChange={handleChange}
               type="number"
-              value={formik.values.price}
+              value={init.price}
               variant="filled"
             />
             <TextField
-              error={Boolean(formik.touched.price && formik.errors.price)}
+              // error={Boolean(formik.touched.price && formik.errors.price)}
               fullWidth
               multiline
+              required
+
               rows={4}
-              helperText={formik.touched.price && formik.errors.price}
+              // helperText={formik.touched.description && formik.errors.description}
               label="Description*"
               margin="normal"
               name="description"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              // onBlur={formik.handleBlur}
+              onChange={handleChange}
               type="text"
-              value={formik.values.description}
+              value={init.description}
               variant="filled"
             />
               <TextField
-              error={Boolean(formik.touched.category && formik.errors.category)}
+              // error={Boolean(formik.touched.category && formik.errors.category)}
               fullWidth
-              helperText={formik.touched.category && formik.errors.category}
+              // helperText={formik.touched.category && formik.errors.category}
               label="Category* | ex: microwaves, kitchen.. "
               margin="normal"
               name="category"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              required
+
+              // onBlur={formik.handleBlur}
+              onChange={handleChange}
               type="text"
-              value={formik.values.category.toLocaleLowerCase()}
+              value={init.category.toLocaleLowerCase()}
               variant="filled"
             />
 
 <TextField
-              error={Boolean(formik.touched.weight && formik.errors.weight)}
+              // error={Boolean(formik.touched.weight && formik.errors.weight)}
               fullWidth
-              helperText={formik.touched.weight && formik.errors.weight}
+              // helperText={formik.touched.weight && formik.errors.weight}
               label="Product weight (add unit kg, liter..) "
               margin="normal"
               name="weight"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
+              // onBlur={formik.handleBlur}
+              onChange={handleChange}
               type="text"
-              value={formik.values.weight.toLocaleLowerCase()}
+              value={init.weight.toLocaleLowerCase()}
               variant="filled"
             />
             {/* <TextField
@@ -201,12 +277,13 @@ import { useRouter } from 'next/router';
             label="Show On Homepage?"
             // error={Boolean(formik.touched.isFeatured && formik.errors.isFeatured)}
             name="isFeatured"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
+            // onBlur={formik.handleBlur}
+            onChange={handleChange}
+            checked={init.isFeatured}
             control={<Checkbox
             // margin="normal"
             // fullWidth
-            value={formik.values.isFeatured}  />}  />
+            value={init.isFeatured}  />}  />
 
 
 
@@ -223,8 +300,9 @@ import { useRouter } from 'next/router';
               value={formik.values.password}
               variant="outlined"
             /> */}
-              <AddImage  HandleImagesChange={handleImgChange}/>
-          </form>
+              <AddImage   HandleImagesChange={handleImgChange}/>
+              {mode === 'edit' && <Typography>Note: adding new images might replace the old ones</Typography>}
+          </form>}
         {/* </Container> */}
 
       </Box>

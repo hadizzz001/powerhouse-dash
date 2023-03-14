@@ -12,8 +12,7 @@ import { useState } from 'react';
 
 
 const AddProduct = () => {
-  const [product, setProduct] = useState({})
-  // console.log('product: ', product);
+  const [disabled, setDisabled] = useState(false)
 
   return (
 
@@ -24,7 +23,7 @@ const AddProduct = () => {
       />
       <Divider />
       <CardContent>
-        <EssentialInfo state={product} saveState={setProduct}/>
+        <EssentialInfo   setDisabled={setDisabled}/>
       </CardContent>
       <Divider />
       <Box
@@ -35,7 +34,7 @@ const AddProduct = () => {
         }}
       >
         <Button
-        // disabled={formik.isSubmitting}
+        disabled={disabled}
         type='submit'
         form='add-form'
         color="primary"
