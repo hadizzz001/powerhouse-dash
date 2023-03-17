@@ -29,15 +29,15 @@ const items = [
   //   title: 'Customers'
   // },
   {
+    href: '/order',
+    icon: (<ChartBarIcon fontSize="small" />),
+    title: 'Orders'
+  },
+  {
     href: '/products',
     icon: (<ShoppingBagIcon fontSize="small" />),
     title: 'Products'
   },
-  // {
-  //   href: '/account',
-  //   icon: (<UserIcon fontSize="small" />),
-  //   title: 'Account'
-  // },
   // {
   //   href: '/settings',
   //   icon: (<CogIcon fontSize="small" />),
