@@ -1,6 +1,6 @@
 import React , {useEffect, useState} from 'react';
 // import ReactDOM from 'react-dom';
-import DisplayTable from '../components/dashboard/display-table';
+// import DisplayTable from '../components/dashboard/display-table';
 import { DashboardLayout } from '../components/dashboard-layout';
 import OrderTable, { createData } from '../components/OrderTable';
 // import Page from './add';
@@ -14,7 +14,7 @@ import OrderTable, { createData } from '../components/OrderTable';
 
 function Order(){
   const [orders,setOrders] = useState<any[]>([])
-  console.log('orders: ', orders);
+  // console.log('orders: ', orders);
   const items: { FullName: string; Phone: string; Email: string; Address: string; history: any; }[] = [
     // {
       // FullName : order[0].
