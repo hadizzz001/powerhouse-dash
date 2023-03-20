@@ -102,13 +102,16 @@ const Page = () => {
                 sm={4}
               >
                   <Box sx={{width:'100%'}}>
-                    <Box sx={{width:'100%',background:'gray',height:'300px'}}>
-                    <img src={product?.images[0] || ''} className='img' alt=''/>
+                    <Box sx={{width:'100%',background:'white',height:'300px'}}>
+                    <img src={product?.images[0] || ''} className='img cover' alt=''/>
                     </Box>
                     <Box sx={{px:'.35em',py:'.5em',display:'flex',justifyContent:'space-between'}}>
 
                       <Typography sx={{fontWeight:'500'}}>
                                 {product?.title}
+                      </Typography>
+                      <Typography sx={{fontWeight:'500'}}>
+                                {product?.category}
                       </Typography>
                       <Typography sx={{color:'green',fontWeight:'500'}}>
                                 ${product?.price}

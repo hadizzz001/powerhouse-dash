@@ -10,14 +10,15 @@ export default async (_req: NextApiRequest, res: NextApiResponse) => {
   if (_req.method === 'GET') {
 
 
-    let limit = typeof Number(_req.query.limit) === 'number' ? Number(_req.query.limit) : 50;
+    // let limit = typeof Number(_req.query.limit) === 'number' ? Number(_req.query.limit) : 50;
+    let limit = 300;
     // maloma ma7sora
     // 5abera basera
     // kabera
     // Process a POST request
     // if (!product) return res.status(400).json({success:false})
        const ProductsCollection = await client.db("Power").collection("Products")
-       const docs = await ProductsCollection.find({}).limit(limit )
+       const docs = await ProductsCollection.find({}).limit(limit)
       //  console.log('docs: ', docs);
       //  console.log('docs: ', docs);
       const products : any[] = [];

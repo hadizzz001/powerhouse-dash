@@ -14,6 +14,9 @@
 .gap-3 {
   gap: .75em;
 }
+.cover {
+  object-fit: contain !important;
+}
 .essential {
   form {
     width:100%

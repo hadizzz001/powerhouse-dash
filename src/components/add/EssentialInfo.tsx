@@ -6,6 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddImage from './AddImage';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { CustomSelect } from '../dashboard/CustomSelect';
 // import { Facebook as FacebookIcon } from '../icons/facebook';
 // import { Google as GoogleIcon } from '../icons/google';
 
@@ -158,7 +159,7 @@ setDisabled(false)
 //   });
   const handleChange = async (e:any) => {
     let val = e.target.value
-    if (val) {
+    if (val !== null) {
       setInit({...init,
       [e.target.name]: val
     })
@@ -230,7 +231,7 @@ setDisabled(false)
               value={init.description}
               variant="filled"
             />
-              <TextField
+              {/* <TextField
               // error={Boolean(formik.touched.category && formik.errors.category)}
               fullWidth
               // helperText={formik.touched.category && formik.errors.category}
@@ -242,15 +243,18 @@ setDisabled(false)
               // onBlur={formik.handleBlur}
               onChange={handleChange}
               type="text"
-              value={init.category.toLocaleLowerCase()}
+              value={`${init.category ? init.category.toLocaleLowerCase() : ''}`}
               variant="filled"
+            /> */}
+            <CustomSelect
+              onChange={(val:any)=>console.log('hi',val)}
             />
 
 <TextField
               // error={Boolean(formik.touched.weight && formik.errors.weight)}
               fullWidth
               // helperText={formik.touched.weight && formik.errors.weight}
-              label="Product weight (add unit kg, liter..) "
+              label="Product color "
               margin="normal"
               name="weight"
               // onBlur={formik.handleBlur}
