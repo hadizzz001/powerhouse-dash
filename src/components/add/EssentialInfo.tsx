@@ -268,7 +268,9 @@ setDisabled(false)
  ,      'fans'
 ,       'tools'].map((item:string) =>{
 
-return    <MenuItem value={item}>{item}</MenuItem>
+return    <MenuItem
+key={item}
+value={item}>{item}</MenuItem>
     })}
   </Select>
   </>
