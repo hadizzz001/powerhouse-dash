@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, Select, Link, TextField,
-  Typography, Checkbox, FormControlLabel } from '@mui/material';
+  Typography, Checkbox, FormControlLabel, InputLabel, MenuItem } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddImage from './AddImage';
 import { useEffect, useState } from 'react';
@@ -246,9 +246,30 @@ setDisabled(false)
               value={`${init.category ? init.category.toLocaleLowerCase() : ''}`}
               variant="filled"
             /> */}
-            <CustomSelect
+            {/* <CustomSelect
               onChange={(val:any)=>console.log('hi',val)}
-            />
+            /> */}
+            <>
+  <InputLabel id="demo-simple-select-label">Category</InputLabel>
+  <Select
+  variant='filled'
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+     name='category'
+    value={init.category.toLocaleLowerCase()}
+    label="Category"
+    fullWidth
+    defaultValue={'electronics'}
+    onChange={handleChange}
+  >
+    <MenuItem  value={'electronics'}>electronics</MenuItem>
+    {['kitchen appliances','small kitchen appliances','vaccum cleaners','tvs'].map((item:string) =>{
+
+return    <MenuItem value={item}>{item}</MenuItem>
+    })}
+  </Select>
+  </>
+
 
 <TextField
               // error={Boolean(formik.touched.weight && formik.errors.weight)}
