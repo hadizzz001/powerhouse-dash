@@ -263,7 +263,10 @@ setDisabled(false)
     onChange={handleChange}
   >
     <MenuItem  value={'electronics'}>electronics</MenuItem>
-    {['kitchen appliances','small kitchen appliances','vaccum cleaners','tvs'].map((item:string) =>{
+    {['electronics','kitchen appliances','small kitchen appliances','vaccum cleaners','tvs'
+       ,'heaters'
+ ,      'fans'
+,       'tools'].map((item:string) =>{
 
 return    <MenuItem value={item}>{item}</MenuItem>
     })}
