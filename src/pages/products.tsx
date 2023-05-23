@@ -103,7 +103,7 @@ const Page = () => {
               >
                   <Box sx={{width:'100%'}}>
                     <Box sx={{width:'100%',background:'white',height:'300px'}}>
-//                     <img src={product?.images[0] || ''} className='img cover' alt=''/> 
+
                     <img src={`https://optinmonster.com/wp-content/uploads/2019/03/wordpress-maintenance-mode-coming-soon-plugins.png`} className='img cover' alt=''/>
                       
                       
