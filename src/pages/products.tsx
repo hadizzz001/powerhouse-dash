@@ -90,7 +90,7 @@ const Page = () => {
             container
             spacing={3}
           >
-          {data && data.length > 0 ? data.filter((item:any)=>item.title.includes(q)).map((product:any) => {
+          {data && data.length > 0  ? data.filter((item:any)=>item.title.includes(q)).reverse().map((product:any) => {
             if (!product?._id || !product?.title) return;
 
             return(  <Grid
