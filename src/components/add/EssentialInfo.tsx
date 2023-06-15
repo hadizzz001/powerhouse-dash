@@ -134,8 +134,12 @@ if (res?.success) {
 
 
     resetForm();
+     setDisabled(false)
+  if (mode === 'edit') {
+    router.push('/add');
+  }
     // setSubmitting(false)
-    setDisabled(false)
+ 
 
 //     router.push('/products')
 
