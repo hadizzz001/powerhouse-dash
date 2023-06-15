@@ -29,7 +29,7 @@ const App = (props) => {
           name="viewport"
           content="initial-scale=1, width=device-width"
         />
-    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+    <script defer  src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 
       </Head>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
