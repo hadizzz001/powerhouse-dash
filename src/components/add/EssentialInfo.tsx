@@ -43,6 +43,7 @@ import UploadVideo from './UploadVideo';
 
     const req= await fetch(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/api/getbyid?pid=${id}`)
     const res = await req.json()
+    console.log('res: ', res);
     if (res) {
 
       setItemToEdit(res)
@@ -58,6 +59,7 @@ import UploadVideo from './UploadVideo';
         isFeatured: res.isFeatured,
         weight: res?.weight,
       })
+      setUrl(res?.videoUrl);
       setImgs(res.images)
       // return res
     }
@@ -89,6 +91,7 @@ import UploadVideo from './UploadVideo';
       // })
     }
   }
+
 const resetForm = () => {
   setInit({ title: '',
   price : '',
@@ -97,6 +100,7 @@ const resetForm = () => {
   isFeatured : false,
   videoUrl : '',
   category : 'electronics'})
+  setUrl('')
 }
 // console.log('init: ', init);
 const onSubmit = async (e:any)=>{
@@ -119,8 +123,10 @@ const req = await fetch(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   },
+
   body: JSON.stringify({state:{...init,videoUrl,images:imgs}})
 })
+
 // console.log('state: ', state);
 const res = await req.json()
 console.log('res: ', res);
@@ -177,6 +183,7 @@ setDisabled(false)
 
 
 
+
   return (
     <>
 
@@ -192,7 +199,7 @@ setDisabled(false)
         }}
       >
         {/* <Container maxWidth='sm' > */}
-        <UploadVideo videoUrl={videoUrl} setUrl={setUrl}/>
+     {!load &&   <UploadVideo videoUrl={videoUrl} setUrl={setUrl}/>}
        {!load &&   <form id='add-form' onSubmit={onSubmit}>
 
 
