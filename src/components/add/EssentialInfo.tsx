@@ -6,7 +6,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddImage from './AddImage';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { CustomSelect } from '../dashboard/CustomSelect';
+// import { CustomSelect } from '../dashboard/CustomSelect';
+import UploadVideo from './UploadVideo';
 // import { Facebook as FacebookIcon } from '../icons/facebook';
 // import { Google as GoogleIcon } from '../icons/google';
 
@@ -20,6 +21,7 @@ import { CustomSelect } from '../dashboard/CustomSelect';
       weight: '',
       description:'',
       isFeatured : false,
+      videoUrl : '',
       category : 'electronics',
       // inStock: false,
       // Manufacturer
@@ -27,6 +29,10 @@ import { CustomSelect } from '../dashboard/CustomSelect';
       // password: 'Password123'
       })
     const [load,setLoad]= useState<any>(false)
+    const [videoUrl,setUrl]= useState<any>('')
+    console.log('init: ', init);
+
+
     const router = useRouter()
     const mode = router.query.mode;
     const id = router.query.id;
@@ -47,6 +53,7 @@ import { CustomSelect } from '../dashboard/CustomSelect';
         title: res.title,
         description: res.description,
         price: res.price,
+        videoUrl : res?.videoUrl || '',
         category: res.category,
         isFeatured: res.isFeatured,
         weight: res?.weight,
@@ -88,6 +95,7 @@ const resetForm = () => {
   weight: '',
   description:'',
   isFeatured : false,
+  videoUrl : '',
   category : 'electronics'})
 }
 // console.log('init: ', init);
@@ -111,10 +119,11 @@ const req = await fetch(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   },
-  body: JSON.stringify({state:{...init,images:imgs}})
+  body: JSON.stringify({state:{...init,videoUrl,images:imgs}})
 })
 // console.log('state: ', state);
 const res = await req.json()
+console.log('res: ', res);
 if (res?.success) {
 
 
@@ -165,6 +174,9 @@ setDisabled(false)
     })
     }
   }
+
+
+
   return (
     <>
 
@@ -180,7 +192,7 @@ setDisabled(false)
         }}
       >
         {/* <Container maxWidth='sm' > */}
-
+        <UploadVideo videoUrl={videoUrl} setUrl={setUrl}/>
        {!load &&   <form id='add-form' onSubmit={onSubmit}>
 
 

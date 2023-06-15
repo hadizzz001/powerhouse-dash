@@ -57,6 +57,8 @@ const Login = () => {
     <>
       <Head>
         <title>Login | Onbeirut Dashboard</title>
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
       </Head>
       <Box
         component="main"
@@ -181,7 +183,7 @@ const Login = () => {
               <a
                 target='_blank'
                 rel='noopener noreferrer'
-                href="https://onbeirut.onrender.com#contact"
+                href="https://onbeirut.com/contact"
               >
                 <Typography
                   sx={{

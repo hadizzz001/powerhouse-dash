@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/components/add/UploadVideo.tsx"  ],
   "exclude": [
     "node_modules"
   ]
