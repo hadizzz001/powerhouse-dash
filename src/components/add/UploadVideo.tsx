@@ -63,7 +63,7 @@ const CloudinaryUploader= ({
 
 
         <Button
-      disabled={uploaded} id='upload_widget'
+      disabled={uploaded || videoUrl} id='upload_widget'
         type='submit'
         form='add-form'
         color="primary"
