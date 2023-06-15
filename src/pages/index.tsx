@@ -7,6 +7,7 @@ import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Facebook as FacebookIcon } from '../icons/facebook';
 import { Google as GoogleIcon } from '../icons/google';
+import Script from 'next/script'
 
 const Login = () => {
   const router = useRouter();
@@ -57,7 +58,7 @@ const Login = () => {
     <>
       <Head>
         <title>Login | Onbeirut Dashboard</title>
-    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+    <Script  src="https://upload-widget.cloudinary.com/global/all.js"></Script>
 
       </Head>
       <Box
