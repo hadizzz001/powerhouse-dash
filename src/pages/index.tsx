@@ -58,9 +58,10 @@ const Login = () => {
     <>
       <Head>
         <title>Login | Onbeirut Dashboard</title>
-    <Script  src="https://upload-widget.cloudinary.com/global/all.js"></Script>
+    
 
       </Head>
+      <Script  src="https://upload-widget.cloudinary.com/global/all.js"></Script>
       <Box
         component="main"
         sx={{
