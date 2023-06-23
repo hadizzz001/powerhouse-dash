@@ -21,8 +21,9 @@ function Order(){
     // }
 
   ]
-  console.log('items: ', items);
+  // console.log('items: ', items);
   const getOrders = async () => {
+
     const req = await fetch('https://powerhouse-dashboard.netlify.app/api/getallorders');
     const res = await req.json()
     res.forEach((item:any) =>{
@@ -45,7 +46,7 @@ function Order(){
 
       //   ]
       //  }
- const pro = createData(`${item.info.firstName} ${item.info.lastName}`, `${item.info.phone}`,
+ const pro = createData(`${`(${item?.uploadDate}) ${ item.info.firstName}`} ${item.info.lastName}`, `${item.info.phone}`,
 
   `${item.info.email}`,
   `${item.info.address1}, ${item.info.address2}`

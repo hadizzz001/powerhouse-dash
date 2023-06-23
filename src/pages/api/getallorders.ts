@@ -23,7 +23,9 @@ export default async (_req: NextApiRequest, res: NextApiResponse) => {
       const products : any[] = [];
        await docs.forEach((prod:any) =>{
         // console.log('prod: ', prod);
-              products.push(prod);
+        const product = { ...prod, uploadDate: prod._id.getTimestamp().toLocaleDateString() };
+        // console.log('product: ', product);
+              products.push(product);
         })
         if (products.length > 0) {
           // console.log('products: ', products);
