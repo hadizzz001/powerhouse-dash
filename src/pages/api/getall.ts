@@ -18,7 +18,7 @@ export default async (_req: NextApiRequest, res: NextApiResponse) => {
     // Process a POST request
     // if (!product) return res.status(400).json({success:false})
        const ProductsCollection = await client.db("Power").collection("Products")
-       const docs = await ProductsCollection.find({}).limit(limit)
+       const docs = await ProductsCollection.find({})
       //  console.log('docs: ', docs);
       //  console.log('docs: ', docs);
       const products : any[] = [];
